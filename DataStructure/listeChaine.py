@@ -26,7 +26,7 @@ class Node:
 class ListeChainer ():
     def __init__(self,start) -> None:
          self.debut=start
-    def __str__(self) -> str:
+    def __str__(self) -> str:  #affichage de la liste 
          if self.debut==None:
              return "liste vide"
          else:
@@ -39,7 +39,9 @@ class ListeChainer ():
             nbr=nbr+1
             next=next.next()
         return nbr
-    def getItem(self,i):
+    def tete(self):
+        return self.debut
+    def getItem(self,i): #obtention du i eme item de la liste
         taille= self.length()
         next=self.debut
         cpt=0
@@ -51,14 +53,37 @@ class ListeChainer ():
                return next.value()
             cpt=cpt+1
             next=next.next()
-    
+    def concat(self,liste): # concatenation de deux listes chainees
+        next=self.debut
         
- 
-
+        while next!=None:
+            prev=next
+            next=next.next()
+        prev.nextNode(liste.tete())
+    def append(self, valeur ): # ajouter un element dans une liste 
+         next=self.debut
+         while next!=None:
+              prev=next
+              next=next.next()
+         prev.nextNode(Node(valeur))
+    def affichage (self) ->str:
+        next=self.debut
+        texte=""
+        while next!=None:
+            
+            texte= texte + str(next.value())+"==>"
+            next=next.next()
+        return texte
 node= Node (25,Node(24))
 node1=Node(26,node)
-Liste= ListeChainer(node1)
+liste= ListeChainer(node1)
+liste1=ListeChainer(node)
+liste2= ListeChainer(Node(65))
 print(node1)
 print("=================")
-print(Liste)
-print(Liste.getItem(3))
+print(liste)
+print(liste.getItem(3))
+liste.concat(liste2)
+for i in range (1000):
+    liste.append(i)
+liste.affichage()
